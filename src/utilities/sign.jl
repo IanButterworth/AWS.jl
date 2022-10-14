@@ -69,14 +69,16 @@ function sign_aws4!(aws::AbstractAWSConfig, request::Request, time::DateTime)
     # HTTP headers...
     delete!(request.headers, "Authorization")
 
-    @info "base64encode called" MD_MD5 repr(MD_MD5) request.content repr(request.content)
+    content_digested = digest(MD_MD5, request.content)
+
+    @info "base64encode called" MD_MD5 repr(MD_MD5) request.content repr(request.content) content_digested
 
     merge!(
         request.headers,
         Dict(
             "x-amz-content-sha256" => content_hash,
             "x-amz-date" => datetime,
-            "Content-MD5" => base64encode(digest(MD_MD5, request.content)),
+            "Content-MD5" => base64encode(content_digested),
         ),
     )
 
