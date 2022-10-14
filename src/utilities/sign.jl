@@ -69,6 +69,8 @@ function sign_aws4!(aws::AbstractAWSConfig, request::Request, time::DateTime)
     # HTTP headers...
     delete!(request.headers, "Authorization")
 
+    @info "base64encode called" MD_MD5 repr(MD_MD5) request.content repr(request.content)
+
     merge!(
         request.headers,
         Dict(
