@@ -71,7 +71,7 @@ function sign_aws4!(aws::AbstractAWSConfig, request::Request, time::DateTime)
 
     content_digested = digest(MD_MD5, request.content)
 
-    @info "base64encode called" MD_MD5 repr(MD_MD5) request.content repr(request.content) content_digested
+    @info "base64encode called" MD_MD5 repr(MD_MD5) request.content repr(request.content) repr(content_digested)
 
     merge!(
         request.headers,
