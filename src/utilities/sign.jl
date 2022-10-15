@@ -87,8 +87,8 @@ function sign_aws4!(aws::AbstractAWSConfig, request::Request, time::DateTime)
     k = 1
     empty!(b.buffer)
     write(b.io,
-        encode(b1 >> 2),
-        encode(b1 << 4),
+        Base64.encode(b1 >> 2),
+        Base64.encode(b1 << 4),
         UInt8('='),
         UInt8('='))
     # close(b)
