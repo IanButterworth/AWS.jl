@@ -77,6 +77,15 @@ function sign_aws4!(aws::AbstractAWSConfig, request::Request, time::DateTime)
 
     fixed_content = UInt8[0x56, 0x94, 0xd0, 0x82, 0x60, 0xc3, 0x68, 0xe3, 0xac, 0x4a, 0x97, 0xc5, 0x24, 0xdb, 0xbf, 0x3e]
     @show @code_native base64encode(fixed_content)
+
+
+    s = IOBuffer()
+    b = Base64EncodePipe(s)
+    write(b, fixed_content)
+    close(b)
+    String(take!(s))
+
+
     @show base64encode(fixed_content)
 
     merge!(
