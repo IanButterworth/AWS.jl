@@ -82,17 +82,17 @@ function sign_aws4!(aws::AbstractAWSConfig, request::Request, time::DateTime)
     s = IOBuffer()
     b = Base64.Base64EncodePipe(s)
     write(b, fixed_content)
-    @show b.buffer.size
-    b1 = b.buffer[1]
-    k = 1
-    empty!(b.buffer)
-    write(b.io,
-        Base64.encode(b1 >> 2),
-        Base64.encode(b1 << 4),
-        UInt8('='),
-        UInt8('='))
-    # close(b)
-    String(take!(s))
+    # @show b.buffer.size
+    # b1 = b.buffer[1]
+    # k = 1
+    # empty!(b.buffer)
+    # write(b.io,
+    #     Base64.encode(b1 >> 2),
+    #     Base64.encode(b1 << 4),
+    #     UInt8('='),
+    #     UInt8('='))
+    # # close(b)
+    # String(take!(s))
 
 
     @show base64encode(fixed_content)
