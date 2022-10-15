@@ -73,6 +73,9 @@ function sign_aws4!(aws::AbstractAWSConfig, request::Request, time::DateTime)
 
     @info "base64encode called" MD_MD5 repr(MD_MD5) request.content repr(request.content) repr(content_digested)
 
+    fixed_content = UInt8[0x56, 0x94, 0xd0, 0x82, 0x60, 0xc3, 0x68, 0xe3, 0xac, 0x4a, 0x97, 0xc5, 0x24, 0xdb, 0xbf, 0x3e]
+    @show base64encode(fixed_content)
+
     merge!(
         request.headers,
         Dict(
